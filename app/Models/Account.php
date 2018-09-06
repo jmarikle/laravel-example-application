@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Mail\AccountCreated;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Database\Eloquent\Model;
 
 class Account extends Model
@@ -31,6 +33,8 @@ class Account extends Model
             ]);
             $location->account()->associate($account);
             $location->save();
+
+            Mail::to(env('MAIL_TO_ADDRESS', 'xxxxxx@xxxxxxxxxxx.com'))->send(new AccountCreated($account));
         });
     }
 }
