@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreAccount;
 use App\Models\Account;
 
 class AccountsController extends Controller
@@ -26,8 +27,10 @@ class AccountsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreAccount $request)
     {
+        $request->validated();
+
         return Account::create($request->only('name'));
     }
 
